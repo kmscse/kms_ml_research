@@ -1,3 +1,4 @@
+# These statistical metrics are useful for assessing the performance of machine learning models.
 # R-sqaured Matrix
 def r_squared(actual, predicted):
     mean_actual = sum(actual) / len(actual)
