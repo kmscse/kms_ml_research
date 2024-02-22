@@ -32,7 +32,7 @@ def resize_image(img_path):
     img_resized = cv2.resize(img, (32, 32), cv2.INTER_LINEAR)
     return img_resized
 
-# loading all the training sampels of the dataset and their corresponding labels, and resizing each image
+# loading all the training samples of the dataset and their corresponding labels, and resizing each image
 def load_training_samples():
     # Varibales to hold the training input and output variables
     train_input_variables = []
@@ -56,7 +56,7 @@ def load_training_samples():
             train_label.append(folder_index)
         return train_input_variables, train_input_variables_id, train_label
             
-# loading all the testing sampels of the dataset and their corresponding labels, and resizing each image
+# loading all the testing samples of the dataset and their corresponding labels, and resizing each image
 def load_testing_samples():
     # Scanning images from the test folder
     imgs_path = os.path.join('..', 'input', 'test_stg1', '*.jpg')
@@ -72,3 +72,9 @@ def load_testing_samples():
         testing_samples.append(resized_img)
         testing_samples_id.append(file_base)
         return testing_samples, testing_samples_id
+    
+# defining a function to use load_training_samples() for loading and resizing training samples.
+def load_normalize_training_samples():
+    # Calling the load function in order to load and resize the training samples
+    training_samples, training_label, training_sample_id = load_training_samples()
+    # Converting the loaded and resized data into Numpy format
