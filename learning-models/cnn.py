@@ -56,3 +56,19 @@ def load_training_samples():
             train_label.append(folder_index)
         return train_input_variables, train_input_variables_id, train_label
             
+# loading all the testing sampels of the dataset and their corresponding labels, and resizing each image
+def load_testing_samples():
+    # Scanning images from the test folder
+    imgs_path = os.path.join('..', 'input', 'test_stg1', '*.jpg')
+    files = sorted(glob.glob(imgs_path))
+    # Vaiables to hold the testing samples
+    testing_samples = []
+    testing_samples_id = []
+    # Processing the images and appending them to the array that we have
+    for file in files:
+        file_base = os.path.basename(file)
+        # Image resizing
+        resized_img = resize_image(file)
+        testing_samples.append(resized_img)
+        testing_samples_id.append(file_base)
+        return testing_samples, testing_samples_id
