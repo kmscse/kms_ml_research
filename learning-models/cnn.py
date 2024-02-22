@@ -31,3 +31,28 @@ def resize_image(img_path):
     # Resize the image to be 32 by 32
     img_resized = cv2.resize(img, (32, 32), cv2.INTER_LINEAR)
     return img_resized
+
+# loading all the training sampels of the dataset and their corresponding labels, and resizing each image
+def load_training_samples():
+    # Varibales to hold the training input and output variables
+    train_input_variables = []
+    train_input_variables_id = []
+    train_label = []
+    # Scanning all images in each folder of a fish type (category)
+    print('Start Reading Train Images')
+    folders = ['ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT']
+    for fld in folders:
+        folder_index = folders.index(fld)
+        print('Load folder {} (Index: {})'.format(fld, folder_index))
+        imgs_path = os.path.join('..', 'input', 'train', fld, '*.jpg')
+        files = glob.glob(imgs_path)
+        for file in files:
+            file_base = os.path.basename(file)
+            # Resize the image
+            resized_img = resize_image(file)
+            # appending the processed image to the input/output variables or the classifier
+            train_input_variables.append(resized_img)
+            train_input_variables_id.append(file_base)
+            train_label.append(folder_index)
+        return train_input_variables, train_input_variables_id, train_label
+            
