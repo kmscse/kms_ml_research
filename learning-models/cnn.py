@@ -101,3 +101,37 @@ def load_normalize_testing_samples():
     testing_samples = testing_samples / 255
     return testing_samples, testing_samples_id
     
+# defining a function to create a CNN architecture
+def create_cnn_model_arch():
+    pool_ize = 2 # a 2x2 pooling matrix
+    conv_depth_1 = 32 # 32 kernels per convolution layers.
+    conv_depth_2 = 64 # switching to 64 after the first pooling layer
+    kernel_size = 3 # 3x3 kernels per convolution layer
+    drop_prob = 0.5 # dropout in the FC layer with probability 0.5
+    hidden_size = 32  # the FC layer with 512 neurons
+    num_classes = 8 # 8 fish types (8 categories)
+    # Conv [32] -> Conv [32] -> Pool
+    cnn_model = Sequential()
+    cnn_model.add(ZeroPadding2D((1, 1), input_shape=(3, 32, 32), dim_ordering='th'))
+    cnn_model.add(Convolution2D(conv_depth_1, kernel_size, kernel_size, activation='relu', dim_ordering='th'))
+    cnn_model.add(ZeroPadding2D((1, 1), dim_ordering='th'))
+    cnn_model.add(Convolution2D(conv_depth_1, kernel_size, kernel_size, activation='relu', dim_ordering='th'))
+    cnn_model.add(MaxPooling2D(pool_size=(pool_size, pool_size), strides=(2, 2), dim_ordering='th'))
+    # Conv [64] -> Conv [64] -> Pool
+    cnn_model.add(ZeroPadding2D((1, 1), dim_ordering='th'))
+    cnn_model.add(Convolution2D(conv_depth_2, kernel_size, kernel_size, activation='relu', dim_ordering='th'))
+    cnn_model.add(ZeroPadding2D((1, 1), dim_ordering='th'))
+    cnn_model.add(Convolution2D(conv_depth_2, kernel_size, kernel_size, activation='relu', dim_ordering='th'))
+    cnn_model.add(MaxPooling2D(pool_size=(pool_size, pool_size), strides=(2, 2), dim_ordering='th'))
+    # Now flatten to 1D, apply FC then ReLU (with dropout) and finally softmax(output layer)
+    cnn_model.add(Flatten())
+    cnn_model.add(Dense(hidden_size, activation='relu'))
+    cnn_model.add(Dropout(drop_prob))
+    cnn_model.add(Dense(hidden_size, activation='relu'))
+    cnn_model.add(Dropout(drop_prob))
+    cnn_model.add(Dense(num_classes, activation='softmax'))
+    # Initiating the stochastic gradient descent optimiser
+    stochastic_gradient_descent = SGD(lr=1e-2, decay=1e-6, momentum=0.9, nesterov=True)
+    # Using the stochastic gradient descent optimiser to compile the model with the cross-entropy loss function
+    cnn_model.compile(optimizer=stochastic_gradient_descent, loss='categorical_crossentropy')
+    return cnn_model
