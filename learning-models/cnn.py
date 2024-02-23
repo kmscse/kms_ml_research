@@ -216,3 +216,8 @@ def test_generality_crossValidation_over_test_set( overall_settings_output_strin
     test_result = merge_several_folds_mean(yfull_test, number_of_folds)
     overall_settings_output_string = 'loss_' + overall_settings_output_string + '_folds_' + str(number_of_folds)
     format_results_for_types(test_result, testing_samples_id, overall_settings_output_string)
+    
+# Entry point: Run k-fold cross-validation model creation and evaluate its generality over the test set.
+if __name__ == '__main__':
+  info_string, models = create_model_with_kfold_cross_validation()
+  test_generality_crossValidation_over_test_set(info_string, models)
