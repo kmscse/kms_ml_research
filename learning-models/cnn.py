@@ -1,4 +1,5 @@
 # importing the required packages for the implementation of CNN architecture
+from attr import _ValidatorArgType
 import numpy as np
 np.random.seed(2018)
 import os
@@ -135,3 +136,53 @@ def create_cnn_model_arch():
     # Using the stochastic gradient descent optimiser to compile the model with the cross-entropy loss function
     cnn_model.compile(optimizer=stochastic_gradient_descent, loss='categorical_crossentropy')
     return cnn_model
+
+# defining a function to assess and validate the learning model CNN using a k-fold cross-validation method
+def create_model_with_kfold_cross_validation(nfolds=10):
+    batch_size = 16 # in each iteration, we consider 32 training examples at once
+    num_epochs = 30 # we iterate 200 times over the entire training set
+    random_state = 51 # control the randomness for reproducibility of the results on the same platform
+    # Loading and normalizing the training samples prior to feeding it to the created CNN model
+    training_samples, training_samples_target, training_samples_id = load_normalize_training_samples()
+    yfull_train = dict()
+    # Providing Training/Testing indices to split data in the training samples
+    # which is splitting data into 10 consecutive folds with shuffling
+    kf = KFold(len(training_samples_id), n_folds=nfolds, shuffle=True, random_state=random_state)
+    fold_number = 0 # Initial value for fold number
+    sum_score = 0 # overall score (will be incremented at each iteration)
+    trained_models = [] # storing the modeling of each iteration over the folds
+    # Getting the training/testing samples based on the generated training/testing indices by Kfold
+    for train_index, test_index in kf:
+       cnn_model = create_cnn_model_arch()
+       training_samples_X = training_samples[train_index] # Getting the training input variables
+       training_samples_Y = training_samples_target[train_index] # Getting the training output/label variable
+       validation_samples_X = training_samples[test_index] # Getting the validation input variables
+       validation_samples_Y = training_samples_target[test_index] # Getting the validation output/label variable
+       fold_number += 1
+       print('Fold number {} from {}'.format(fold_number, nfolds))
+       callbacks = [
+           EarlyStopping(monitor='val_loss', patience=3, verbose=0),
+       ]
+       # Fitting the CNN model giving the defined settings
+       cnn_model.fit(training_samples_X, training_samples_Y, batch_size=batch_size,
+         nb_epoch=num_epochs,
+             shuffle=True, verbose=2, validation_data=(validation_samples_X,
+               validation_samples_Y),
+             callbacks=callbacks)
+       # measuring the generalization ability of the trained model based on the validation set
+       predictions_of_validation_samples = cnn_model.predict(validation_samples_X.astype('float32'),
+         batch_size=batch_size, verbose=2)
+       current_model_score = log_loss(_ValidatorArgType, predictions_of_validation_samples)
+       print('Current model score log_loss: ', current_model_score)
+       sum_score += current_model_score*len(test_index)
+       # Store valid predictions
+       for i in range(len(test_index)):
+           yfull_train[test_index[i]] = predictions_of_validation_samples[i]
+       # Store the trained model
+       trained_models.append(cnn_model)
+    # incrementing the sum_score value by the current model calculated score
+    overall_score = sum_score/len(training_samples)
+    print("Log_loss train independent avg: ", overall_score)
+    #Reporting the model loss at this stage
+    overall_settings_output_string = 'loss_' + str(overall_score) + '_folds_' + str(nfolds) + '_ep_' + str(num_epochs)
+    return overall_settings_output_string, trained_models 
