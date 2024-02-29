@@ -194,21 +194,21 @@ print_earthquake3_info(title, name, record_sequence_number, earthquake_station, 
 # Assuming file paths are given and exist
 # Earthquake4
 accelerationFilePaths_quake4 = [
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC180_A.txt', 
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC270_A.txt',
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC-UP_A.txt'
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC180_A.txt', 
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC270_A.txt',
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC-UP_A.txt'
 ]
 
 velocityFilePaths_quake4 = [
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC180_V.txt', 
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC270_V.txt', 
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC-UP_V.txt'
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC180_V.txt', 
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC270_V.txt', 
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC-UP_V.txt'
 ]
 
 displacementFilePaths_quake4 = [
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC180_D.txt', 
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC270_D.txt', 
-    r'C:\Users\Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/Ground Motion Database\/Time Series Records for 100 Earthquakes (California US)\/Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC-UP_D.txt'
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC180_D.txt', 
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC270_D.txt', 
+    'Earthquake_04_(Imperial Valley-02)_RSN6\RSN6_IMPVALL.I_I-ELC-UP_D.txt'
 ]
 dt = 0.005
 
