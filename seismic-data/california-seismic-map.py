@@ -48,7 +48,6 @@ for info, shape in zip(m.california_info, m.california):
         x, y = zip(*shape)
         m.plot(x, y, marker=None, color='magenta')
 
-
 m.drawcoastlines()
 m.drawcountries()
 m.drawstates()
