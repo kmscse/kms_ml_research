@@ -2,8 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Make sure to replace this path with the actual path where your CSV file is located.
-csv_file_path = 'C:\/Users\/Acer\/OneDrive - UTS\/Desktop\/University of Portsmouth\/MSc Dissertation\/ML Research\/structural-models-and-data\/material-stress-strain-curve-rebar.csv'
+# file path
+csv_file_path = 'material-stress-strain-curve-rebar.csv'
 
 # Load the CSV data into a DataFrame
 data = pd.read_csv(csv_file_path)
